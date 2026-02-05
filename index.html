@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine Proposal</title>
+
+<style>
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background-color: #ffd6d6;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        padding: 60px 0;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    /* HEART RAIN */
+    .rain-heart {
+        position: fixed;
+        top: -40px;
+        color: rgba(255, 0, 0, 0.6);
+        animation: fall linear infinite;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    @keyframes fall {
+        from {
+            transform: translateY(-50px);
+        }
+        to {
+            transform: translateY(110vh);
+        }
+    }
+
+    #proposal-box {
+        width: 600px;
+        height: 500px;
+        background: white;
+        border-radius: 35px;
+        box-shadow: 0 25px 50px rgba(255, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        z-index: 2;
+    }
+
+    h1 {
+        color: #c40000;
+        font-size: 30px;
+        margin-bottom: 40px;
+    }
+
+    .buttons {
+        position: relative;
+        width: 320px;
+        height: 160px;
+    }
+
+    button {
+        padding: 14px 30px;
+        font-size: 20px;
+        border: none;
+        border-radius: 12px;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    #yesBtn {
+        background-color: red;
+        color: white;
+        font-weight: bold;
+        left: 0;
+        top: 60px;
+        position: center;
+    }
+
+    #noBtn {
+        background-color: #e5e5e5;
+        color: black;
+        font-weight: bold;
+        left: 180px;
+        top: 60px;
+        cursor: not-allowed;
+    }
+
+    #result {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    #result h2 {
+        font-size: 26px;
+        color: #c40000;
+        margin-bottom: 15px;
+    }
+
+    #result img {
+        width: 220px;
+    }
+</style>
+</head>
+
+<body>
+
+<div id="proposal-box">
+
+    <div id="question">
+        <h1>Hey Fatima Ji will you be my Valentine?</h1>
+
+        <div class="buttons" id="btnArea">
+            <button id="yesBtn">❤️ YES</button>
+            <button id="noBtn">NO</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <h2>Thank you my Love ❤️</h2>
+        <img src="https://i.gifer.com/1W9X.gif" alt="Happy Jump">
+    </div>
+
+</div>
+
+<script>
+    /* HEART RAIN GENERATOR */
+    function createRainHeart() {
+        const heart = document.createElement("div");
+        heart.className = "rain-heart";
+        heart.innerHTML = "❤️";
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = 16 + Math.random() * 24 + "px";
+        heart.style.animationDuration = 6 + Math.random() * 6 + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 12000);
+    }
+
+    setInterval(createRainHeart, 250);
+
+    /* BUTTON LOGIC */
+    const noBtn = document.getElementById("noBtn");
+    const btnArea = document.getElementById("btnArea");
+    const yesBtn = document.getElementById("yesBtn");
+    const question = document.getElementById("question");
+    const result = document.getElementById("result");
+
+    function moveNoButton() {
+        const maxX = btnArea.clientWidth - noBtn.offsetWidth;
+        const maxY = btnArea.clientHeight - noBtn.offsetHeight;
+
+        noBtn.style.left = Math.random() * maxX + "px";
+        noBtn.style.top = Math.random() * maxY + "px";
+    }
+
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("mousedown", moveNoButton);
+
+    yesBtn.addEventListener("click", () => {
+        question.style.display = "none";
+        result.style.display = "flex";
+    });
+</script>
+
+</body>
+</html>
